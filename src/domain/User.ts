@@ -1,34 +1,24 @@
-export type UserType = "ADMIN" | "GENERAL";
+import { z } from "zod";
 
-export class User {
-  // 1. プロパティを明示的に宣言する
-  public readonly id: number;
-  public readonly name: string;
-  public readonly type: UserType;
+// 1. スキーマ定義：APIが値を返さない場合のデフォルト値もここで定義
+export const UserSchema = z.object({
+  id: z.number(),
+  name: z.string().default("名前なし"),
+  type: z.enum(["ADMIN", "GENERAL"]).default("GENERAL"),
+});
 
-  constructor(id: number, name: string, type: UserType) {
-    // 2. コンストラクタで代入する（これが標準的なJS/TSの動き）
-    this.id = id;
-    this.name = name;
-    this.type = type;
-  }
+// 2. 型の抽出（Zodが定義した構造から自動で型を生成）
+export type User = z.infer<typeof UserSchema>;
+export const UserListSchema = z.array(UserSchema);
 
-  // --- 以下は以前と同じ ---
+// 3. ビジネスロジック（純粋関数）
+export const getUserTypeLabel = (type: User["type"]): string => {
+  return type === "ADMIN" ? "管理者" : "一般ユーザー";
+};
 
-  get typeLabel(): string {
-    return this.type === "ADMIN" ? "管理者" : "一般ユーザー";
-  }
-
-  static empty(): User {
-    return new User(0, "読み込み中...", "GENERAL");
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static fromApi(data: any): User {
-    return new User(
-      data.id ?? 0,
-      data.name ?? "名前なし",
-      data.type ?? "GENERAL"
-    );
-  }
-}
+// 4. 初期状態（Null Object）
+export const EMPTY_USER: User = {
+  id: 0,
+  name: "読み込み中...",
+  type: "GENERAL",
+};
