@@ -3,14 +3,7 @@ import { UserSearchPage } from "./presentation/pages/UserSearchPage";
 /**
  * Application Entry Point
  * 
- * 階層型フロントエンドアーキテクチャ (Layered Frontend Application)
- * Based on: https://martinfowler.com/articles/modularizing-react-apps.html
- * 
- * アーキテクチャレイヤー:
- * - Presentation Layer: UIコンポーネント (presentation/)
- * - Application Layer: Hooks、サービス (application/)
- * - Domain Layer: ビジネスロジック、モデル (domain/)
- * - Infrastructure Layer: API通信、外部サービス (infrastructure/)
+ * アプリケーション全体のレイアウトとルーティングを担当
  */
 
 function App() {
@@ -45,12 +38,7 @@ function App() {
           fontSize: "14px",
         }}
       >
-        <div style={{ marginBottom: "8px" }}>
-          <strong>アーキテクチャレイヤー:</strong>
-        </div>
-        <div style={{ fontSize: "12px" }}>
-          Presentation → Application → Domain → Infrastructure
-        </div>
+        Presentation → Application → Domain → Infrastructure
       </footer>
     </div>
   );
