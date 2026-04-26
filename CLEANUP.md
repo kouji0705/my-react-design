@@ -2,28 +2,45 @@
 
 ## ✅ 削除したファイル
 
-古い実装（階層型アーキテクチャ移行前）のファイルを削除しました：
+古い実装（階層型アーキテクチャ移行前）のファイルを**完全に**削除しました：
 
-### 削除されたファイル
+### 第1回削除（初回クリーンアップ）
 ```
 src/
 ├── domain/
-│   └── User.ts                    ❌ 削除（重複）
-├── infrastructure/
-│   └── UserFetcher.ts             ❌ 削除（古い実装）
-├── hooks/
-│   └── useUserSearch.ts           ❌ 削除（古い実装）
+│   └── User.ts                    ❌ 削除（重複スキーマ）
 ├── components/
-│   ├── UserList.tsx               ❌ 削除（古い実装）
-│   └── UserSearch.tsx             ❌ 削除（古い実装）
-└── App.layered.tsx                ❌ 削除（重複）
+│   ├── UserList.tsx               ❌ 削除（古いコンポーネント）
+│   └── UserSearch.tsx             ❌ 削除（古いコンポーネント）
+└── App.layered.tsx                ❌ 削除（重複したApp）
+```
+
+### 第2回削除（完全クリーンアップ）
+```
+src/
+├── infrastructure/
+│   └── UserFetcher.ts             ❌ 削除（古いAPI通信、UserApiClientに統合）
+└── hooks/
+    └── useUserSearch.ts           ❌ 削除（古いHook、application/hooks/に統合）
 ```
 
 ### 削除されたディレクトリ
 ```
-src/hooks/        ❌ 削除（空ディレクトリ）
-src/components/   ❌ 削除（空ディレクトリ）
+src/hooks/        ❌ 削除（完全に不要）
+src/components/   ❌ 削除（完全に不要）
 ```
+
+### 削除理由
+
+**UserFetcher.ts が不要な理由:**
+- 新しいアーキテクチャでは `UserApiClient.ts` が同じ役割
+- より良い設計（インターフェース、依存性注入）
+- テストしやすい構造
+
+**src/hooks/useUserSearch.ts が不要な理由:**
+- `application/hooks/useUserSearch.ts` として再実装済み
+- 新しい実装では Repository パターンを使用
+- より明確な責務分離
 
 ## ✅ 現在のディレクトリ構造
 
