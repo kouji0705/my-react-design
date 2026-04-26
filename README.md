@@ -71,6 +71,7 @@ npm run build
 - **[LAYERS.md](./LAYERS.md)** - 各レイヤーの詳細解説とデータフロー
 - **[COMPARISON.md](./COMPARISON.md)** - Before/After 比較
 - **[SUMMARY.md](./SUMMARY.md)** - 実装完了サマリー
+- **[CLEANUP.md](./CLEANUP.md)** - クリーンアップと重複削除の記録
 
 ## 🎨 採用デザインパターン
 
